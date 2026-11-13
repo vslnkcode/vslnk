@@ -55,6 +55,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: background-color 0.3s ease, color 0.3s ease;
+            overflow-x: hidden;
         }
         .glass-card {
             background: var(--card-bg);
@@ -84,7 +85,6 @@
             animation: pulseGlow 3s infinite ease-in-out;
         }
 
-        /* Нежная и эстетичная анимация для модального окна (появление с мягким зумом) */
         @keyframes modalShow {
             0% { opacity: 0; transform: scale(0.95) translateY(10px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -93,7 +93,6 @@
             animation: modalShow 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Нежная анимация смены фото (плавное растворение + легкий масштаб) */
         @keyframes imageChange {
             0% { opacity: 0; transform: scale(0.98); filter: blur(4px); }
             100% { opacity: 1; transform: scale(1); filter: blur(0px); }
@@ -105,9 +104,10 @@
 </head>
 <body class="antialiased selection:bg-pink-500 selection:text-white">
 
+    <!-- Header / Navigation -->
     <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-white/10 transition-all duration-300" style="background-color: var(--header-bg);">
-        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="#" class="font-serif text-2xl tracking-tight font-bold italic hover:scale-105 transition-transform">vslnk<span style="color: var(--accent-color);">.</span></a>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-18 sm:h-20 flex items-center justify-between">
+            <a href="#" class="font-serif text-xl sm:text-2xl tracking-tight font-bold italic hover:scale-105 transition-transform">vslnk<span style="color: var(--accent-color);">.</span></a>
             
             <nav class="hidden md:flex items-center gap-8 text-sm font-medium" style="color: var(--muted-color);">
                 <a href="#about" class="hover:opacity-100 transition-opacity" data-i18n="nav_about">про мене</a>
@@ -116,17 +116,17 @@
                 <a href="#contact" class="hover:opacity-100 transition-opacity" data-i18n="nav_contact">контакти</a>
             </nav>
 
-            <div class="flex items-center gap-3">
-                <select id="theme-selector" onchange="setTheme(this.value)" class="text-xs font-medium px-3 py-1.5 rounded-full glass-card outline-none cursor-pointer">
-                    <option value="dark">🌙 Темна</option>
-                    <option value="light">☀️ Світла</option>
-                    <option value="pink">🌸 Рожева</option>
+            <div class="flex items-center gap-2 sm:gap-3">
+                <select id="theme-selector" onchange="setTheme(this.value)" class="text-[11px] sm:text-xs font-medium px-2.5 sm:px-3 py-1.5 rounded-full glass-card outline-none cursor-pointer">
+                    <option value="dark">🌙</option>
+                    <option value="light">☀️</option>
+                    <option value="pink">🌸</option>
                 </select>
 
-                <select id="lang-selector" onchange="setLang(this.value)" class="text-xs font-medium px-3 py-1.5 rounded-full glass-card outline-none cursor-pointer">
-                    <option value="ua">🇺🇦 UA</option>
-                    <option value="ru">🇷🇺 RU</option>
-                    <option value="en">🇬🇧 EN</option>
+                <select id="lang-selector" onchange="setLang(this.value)" class="text-[11px] sm:text-xs font-medium px-2.5 sm:px-3 py-1.5 rounded-full glass-card outline-none cursor-pointer">
+                    <option value="ua">UA</option>
+                    <option value="ru">RU</option>
+                    <option value="en">EN</option>
                 </select>
 
                 <a href="#contact" class="hidden sm:inline-block px-5 py-2.5 rounded-full text-white text-sm font-medium transition-transform hover:scale-105 shadow-lg" style="background: var(--accent-gradient);" data-i18n="btn_contact">
@@ -136,30 +136,31 @@
         </div>
     </header>
 
-    <section id="about" class="pt-28 md:pt-36 pb-20 px-6 max-w-6xl mx-auto relative animate-fade-in">
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
-            <div class="md:col-span-8 space-y-6">
-                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs font-semibold tracking-wide uppercase animate-pulse-glow" style="color: var(--accent-color);" data-i18n="hero_badge">
+    <!-- Hero Section -->
+    <section id="about" class="pt-24 sm:pt-28 md:pt-36 pb-12 sm:pb-20 px-4 sm:px-6 max-w-6xl mx-auto relative animate-fade-in">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-6 sm:gap-8 items-center relative z-10">
+            <div class="md:col-span-8 space-y-4 sm:space-y-6 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 rounded-full glass-card text-[11px] sm:text-xs font-semibold tracking-wide uppercase animate-pulse-glow" style="color: var(--accent-color);" data-i18n="hero_badge">
                     ✨ Frontend & Python Developer / UI Logic
                 </div>
-                <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.1] tracking-tight">
+                <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.15] tracking-tight">
                     <span data-i18n="hero_title_1">Код, дизайн та</span> <span class="italic font-light text-transparent bg-clip-text" style="background-image: var(--accent-gradient);" data-i18n="hero_title_accent">естетика</span> <span data-i18n="hero_title_2">у кожному пікселі.</span>
                 </h1>
-                <p class="text-base sm:text-lg md:text-xl max-w-2xl font-light leading-relaxed" style="color: var(--muted-color);" data-i18n="hero_desc">
+                <p class="text-sm sm:text-lg md:text-xl max-w-2xl font-light leading-relaxed mx-auto md:mx-0" style="color: var(--muted-color);" data-i18n="hero_desc">
                     Привіт, я Валерія. Створюю круті веб-додатки та інтерфейси з характером, де чиста архітектура коду поєднується з бездоганним візуальним стилем.
                 </p>
-                <div class="flex flex-wrap items-center gap-4 pt-4">
-                    <a href="#projects" class="px-7 py-3.5 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-md bg-white text-black hover:opacity-90" data-i18n="btn_projects">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3 sm:gap-4 pt-2">
+                    <a href="#projects" class="w-full sm:w-auto px-7 py-3.5 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-md bg-white text-black hover:opacity-90 text-center" data-i18n="btn_projects">
                         дивитися проєкти ↓
                     </a>
-                    <button onclick="copyEmail()" id="copy-btn" class="px-7 py-3.5 rounded-full glass-card text-sm font-medium transition-all transform hover:scale-105">
+                    <button onclick="copyEmail()" id="copy-btn" class="w-full sm:w-auto px-7 py-3.5 rounded-full glass-card text-sm font-medium transition-all transform hover:scale-105">
                         📋 <span data-i18n="btn_copy">скопіювати email</span>
                     </button>
                 </div>
             </div>
             
-            <div class="md:col-span-4">
-                <div class="p-8 rounded-3xl glass-card space-y-4 hover:rotate-1 transition-transform">
+            <div class="md:col-span-4 mt-4 md:mt-0">
+                <div class="p-6 sm:p-8 rounded-3xl glass-card space-y-4 transition-transform">
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background: rgba(255,42,133,0.15); color: var(--accent-color);">
                         <i data-lucide="sparkles" class="w-6 h-6"></i>
                     </div>
@@ -175,64 +176,67 @@
         </div>
     </section>
 
-    <section id="projects" class="py-20 px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
-        <div class="mb-12">
+    <!-- Projects Section -->
+    <section id="projects" class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
+        <div class="mb-8 sm:mb-12">
             <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);" data-i18n="portfolio_tag">Портфоліо</span>
             <h2 class="font-serif text-3xl md:text-5xl mt-2" data-i18n="portfolio_title">Вибрані проєкти</h2>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid"></div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8" id="projects-grid"></div>
     </section>
 
-    <section id="stack" class="py-20 px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
+    <!-- Tech Stack Section -->
+    <section id="stack" class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
         <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);" data-i18n="stack_tag">Технології</span>
-        <h2 class="font-serif text-3xl md:text-5xl mt-2 mb-10" data-i18n="stack_title">Стек та інструменти</h2>
+        <h2 class="font-serif text-3xl md:text-5xl mt-2 mb-8 sm:mb-10" data-i18n="stack_title">Стек та інструменти</h2>
         
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
-                <span class="block font-semibold text-lg">C++ / Python</span>
-                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Core & Logic</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3 sm:gap-4">
+            <div class="p-4 sm:p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-base sm:text-lg">C++ / Python</span>
+                <span class="text-[11px] sm:text-xs mt-1 block" style="color: var(--muted-color);">Core & Logic</span>
             </div>
-            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
-                <span class="block font-semibold text-lg">JS / HTML / CSS</span>
-                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Frontend Web</span>
+            <div class="p-4 sm:p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-base sm:text-lg">JS / HTML / CSS</span>
+                <span class="text-[11px] sm:text-xs mt-1 block" style="color: var(--muted-color);">Frontend Web</span>
             </div>
-            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
-                <span class="block font-semibold text-lg">PostgreSQL</span>
-                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Neon DB & SQL</span>
+            <div class="p-4 sm:p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-base sm:text-lg">PostgreSQL</span>
+                <span class="text-[11px] sm:text-xs mt-1 block" style="color: var(--muted-color);">Neon DB & SQL</span>
             </div>
-            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
-                <span class="block font-semibold text-lg">UI / UX</span>
-                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Canva & Visuals</span>
+            <div class="p-4 sm:p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-base sm:text-lg">UI / UX</span>
+                <span class="text-[11px] sm:text-xs mt-1 block" style="color: var(--muted-color);">Canva & Visuals</span>
             </div>
-            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
-                <span class="block font-semibold text-lg">Git / VS Code</span>
-                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Workflow</span>
+            <div class="col-span-2 sm:col-span-1 p-4 sm:p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-base sm:text-lg">Git / VS Code</span>
+                <span class="text-[11px] sm:text-xs mt-1 block" style="color: var(--muted-color);">Workflow</span>
             </div>
         </div>
     </section>
 
-    <section id="contact" class="py-20 px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
-        <div class="p-10 md:p-16 rounded-3xl glass-card max-w-3xl mx-auto space-y-6">
+    <!-- Contact Form Section -->
+    <section id="contact" class="py-16 sm:py-20 px-4 sm:px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
+        <div class="p-6 sm:p-10 md:p-16 rounded-3xl glass-card max-w-3xl mx-auto space-y-6">
             <div class="text-center">
                 <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);" data-i18n="contact_tag">Зв'язок</span>
-                <h2 class="font-serif text-3xl md:text-5xl mt-2" data-i18n="contact_title">Давайте створимо щось круте разом</h2>
-                <p class="max-w-md mx-auto text-sm md:text-base mt-2" style="color: var(--muted-color);" data-i18n="contact_desc">
+                <h2 class="font-serif text-2xl sm:text-3xl md:text-5xl mt-2" data-i18n="contact_title">Давайте створимо щось круте разом</h2>
+                <p class="max-w-md mx-auto text-xs sm:text-sm md:text-base mt-2" style="color: var(--muted-color);" data-i18n="contact_desc">
                     Відкрита до стажування, крутих проєктів та колаборацій. Залиште повідомлення, і воно прилетить мені на пошту.
                 </p>
             </div>
 
-            <form action="https://formspree.io/f/mdegagwe" method="POST" class="space-y-4 pt-4" id="contact-form">
+            <form action="https://formspree.io/f/mdegagwe" method="POST" class="space-y-4 pt-2" id="contact-form">
                 <div>
                     <label class="block text-xs uppercase tracking-wider mb-2 font-medium" style="color: var(--muted-color);" data-i18n="form_email_label">Ваше ім'я / пошта</label>
-                    <input type="email" name="email" required placeholder="name@example.com" class="w-full px-5 py-3 rounded-2xl glass-card outline-none text-sm transition-all focus:border-pink-500">
+                    <input type="email" name="email" required placeholder="name@example.com" class="w-full px-4 sm:px-5 py-3 rounded-2xl glass-card outline-none text-sm transition-all focus:border-pink-500">
                 </div>
                 <div>
                     <label class="block text-xs uppercase tracking-wider mb-2 font-medium" style="color: var(--muted-color);" data-i18n="form_msg_label">Повідомлення</label>
-                    <textarea name="message" rows="4" required placeholder="Розкажіть про проєкт чи завдання..." data-i18n-placeholder="form_msg_placeholder" class="w-full px-5 py-3 rounded-2xl glass-card outline-none text-sm transition-all resize-none focus:border-pink-500"></textarea>
+                    <textarea name="message" rows="4" required placeholder="Розкажіть про проєкт чи завдання..." data-i18n-placeholder="form_msg_placeholder" class="w-full px-4 sm:px-5 py-3 rounded-2xl glass-card outline-none text-sm transition-all resize-none focus:border-pink-500"></textarea>
                 </div>
                 <div class="text-center pt-2">
-                    <button type="submit" id="submit-btn" class="px-8 py-4 rounded-full text-white text-sm font-medium hover:opacity-95 transition-transform hover:scale-105 shadow-lg cursor-pointer" style="background: var(--accent-gradient);" data-i18n="form_submit_btn">
+                    <button type="submit" id="submit-btn" class="w-full sm:w-auto px-8 py-4 rounded-full text-white text-sm font-medium hover:opacity-95 transition-transform hover:scale-105 shadow-lg cursor-pointer" style="background: var(--accent-gradient);" data-i18n="form_submit_btn">
                         Надіслати повідомлення ✉️
                     </button>
                 </div>
@@ -241,49 +245,50 @@
         </div>
     </section>
 
-    <footer class="py-10 px-6 max-w-6xl mx-auto border-t flex flex-col sm:flex-row items-center justify-between text-xs" style="border-color: var(--card-border); color: var(--muted-color);">
+    <!-- Footer -->
+    <footer class="py-8 sm:py-10 px-4 sm:px-6 max-w-6xl mx-auto border-t flex flex-col sm:flex-row items-center justify-between text-xs text-center sm:text-left gap-2" style="border-color: var(--card-border); color: var(--muted-color);">
         <p>© 2026 vslnk. All rights reserved.</p>
-        <p class="mt-2 sm:mt-0" data-i18n="footer_note">Designed with aesthetic precision 🤍</p>
+        <p data-i18n="footer_note">Designed with aesthetic precision 🤍</p>
     </footer>
 
-    <!-- Lightbox Modal с нежной анимацией появления -->
-    <div id="lightbox" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 transition-opacity duration-300">
-        <div id="lightbox-modal-content" class="rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl glass-card relative animate-modal-show">
-            <div class="p-6 border-b border-white/10 flex items-center justify-between" style="background: var(--card-bg);">
-                <div>
-                    <span id="modal-category" class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);"></span>
-                    <h3 id="modal-title" class="font-serif text-2xl font-medium mt-1"></h3>
+    <!-- Lightbox Modal -->
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-2 sm:p-4 transition-opacity duration-300">
+        <div id="lightbox-modal-content" class="rounded-3xl max-w-4xl w-full max-h-[92vh] flex flex-col overflow-hidden shadow-2xl glass-card relative animate-modal-show">
+            <div class="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between gap-2" style="background: var(--card-bg);">
+                <div class="min-w-0">
+                    <span id="modal-category" class="text-[10px] sm:text-xs uppercase tracking-widest font-semibold block truncate" style="color: var(--accent-color);"></span>
+                    <h3 id="modal-title" class="font-serif text-lg sm:text-2xl font-medium mt-0.5 truncate"></h3>
                 </div>
-                <div class="flex items-center gap-3">
-                    <a id="modal-project-link" href="#" target="_blank" class="px-4 py-2 rounded-full text-xs font-medium text-white shadow-md transition-transform hover:scale-105" style="background: var(--accent-gradient);" data-i18n="open_site_btn">🌐 Відкрити сайт</a>
-                    <button onclick="closeLightbox()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center transition-colors hover:rotate-90 duration-300">
-                        <i data-lucide="x" class="w-5 h-5"></i>
+                <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+                    <a id="modal-project-link" href="#" target="_blank" class="px-3 sm:px-4 py-2 rounded-full text-[11px] sm:text-xs font-medium text-white shadow-md transition-transform hover:scale-105" style="background: var(--accent-gradient);" data-i18n="open_site_btn">🌐 Сайт</a>
+                    <button onclick="closeLightbox()" class="w-8 h-8 sm:w-10 sm:h-10 rounded-full glass-card flex items-center justify-center transition-colors hover:rotate-90 duration-300">
+                        <i data-lucide="x" class="w-4 h-4 sm:w-5 sm:h-5"></i>
                     </button>
                 </div>
             </div>
 
-            <div class="relative flex-1 bg-black/40 flex items-center justify-center overflow-hidden min-h-[350px] md:min-h-[450px]">
-                <button onclick="prevSlide()" class="absolute left-4 z-20 w-12 h-12 rounded-full glass-card flex items-center justify-center shadow-md transition-transform hover:scale-110">
-                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+            <div class="relative flex-1 bg-black/40 flex items-center justify-center overflow-hidden min-h-[280px] sm:min-h-[350px] md:min-h-[450px] p-2">
+                <button onclick="prevSlide()" class="absolute left-2 sm:left-4 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center shadow-md transition-transform hover:scale-110">
+                    <i data-lucide="chevron-left" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </button>
-                <button onclick="nextSlide()" class="absolute right-4 z-20 w-12 h-12 rounded-full glass-card flex items-center justify-center shadow-md transition-transform hover:scale-110">
-                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                <button onclick="nextSlide()" class="absolute right-2 sm:right-4 z-20 w-9 h-9 sm:w-12 sm:h-12 rounded-full glass-card flex items-center justify-center shadow-md transition-transform hover:scale-110">
+                    <i data-lucide="chevron-right" class="w-5 h-5 sm:w-6 sm:h-6"></i>
                 </button>
 
-                <!-- Фото с плавной нежной анимацией смены -->
-                <img id="lightbox-img" src="" alt="Project view" class="max-h-[500px] w-auto object-contain animate-image-change">
+                <img id="lightbox-img" src="" alt="Project view" class="max-h-[400px] sm:max-h-[500px] w-auto object-contain animate-image-change">
             </div>
 
-            <div class="p-6 border-t border-white/10 space-y-4" style="background: var(--card-bg);">
-                <p id="modal-desc" class="text-sm leading-relaxed" style="color: var(--muted-color);"></p>
-                <div class="flex items-center justify-between">
-                    <div id="thumbnails-container" class="flex gap-2 overflow-x-auto py-1"></div>
-                    <span id="slide-counter" class="text-xs font-semibold" style="color: var(--muted-color);">01 / 01</span>
+            <div class="p-4 sm:p-6 border-t border-white/10 space-y-3 sm:space-y-4" style="background: var(--card-bg);">
+                <p id="modal-desc" class="text-xs sm:text-sm leading-relaxed line-clamp-3 sm:line-clamp-none" style="color: var(--muted-color);"></p>
+                <div class="flex items-center justify-between gap-4">
+                    <div id="thumbnails-container" class="flex gap-2 overflow-x-auto py-1 max-w-[70%] sm:max-w-[80%] scrollbar-none"></div>
+                    <span id="slide-counter" class="text-xs font-semibold shrink-0" style="color: var(--muted-color);">01 / 01</span>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- JavaScript Application Logic -->
     <script>
         lucide.createIcons();
 
@@ -317,7 +322,7 @@
                 form_success: "Дякую! Повідомлення успішно надіслано.",
                 footer_note: "Designed with aesthetic precision 🤍",
                 gallery_btn: "Відкрити проєкт →",
-                open_site_btn: "🌐 Відкрити сайт",
+                open_site_btn: "🌐 Сайт",
                 niara_desc: "Е-комрс платформа для китайських товарів з аналізом конкурентів та Neon PostgreSQL.",
                 niara_full: "Повний цикл розробки проєкту Niara: глибокий конкурентний аналіз, візуальні макети, підключення Neon PostgreSQL бази даних та автоматична обробка форм замовлень.",
                 elixir_desc: "Cyber Life & Health Workspace — операційна система для здоров'я, трекінгу звичок, харчування та фокусу.",
@@ -352,7 +357,7 @@
                 form_success: "Спасибо! Сообщение успешно отправлено.",
                 footer_note: "Designed with aesthetic precision 🤍",
                 gallery_btn: "Открыть проект →",
-                open_site_btn: "🌐 Открыть сайт",
+                open_site_btn: "🌐 Сайт",
                 niara_desc: "Э-коммерс платформа для китайских товаров с анализом конкурентов и Neon PostgreSQL.",
                 niara_full: "Полный цикл разработки проекта Niara: глубокий конкурентный анализ, визуальные макеты, подключение Neon PostgreSQL и автоматическая обработка форм.",
                 elixir_desc: "Cyber Life & Health Workspace — операционная система для здоровья, трекинга привычек, питания и фокуса.",
@@ -387,7 +392,7 @@
                 form_success: "Thank you! Your message has been sent.",
                 footer_note: "Designed with aesthetic precision 🤍",
                 gallery_btn: "Open Project →",
-                open_site_btn: "🌐 Open Site",
+                open_site_btn: "🌐 Site",
                 niara_desc: "E-commerce platform for Chinese goods with competitor analysis and Neon PostgreSQL.",
                 niara_full: "Full development cycle of Niara: deep competitor analysis, visual layouts, Neon PostgreSQL database integration, and automated form processing.",
                 elixir_desc: "Cyber Life & Health Workspace — operational system for health, habit tracking, nutrition, and focus.",
@@ -404,14 +409,7 @@
                 fullKey: 'niara_full',
                 url: 'https://sasha-15-a.github.io/Niara/',
                 images: [
-                    '1.png',
-                    '2.png',
-                    '3.png',
-                    '4.png',
-                    '5.png',
-                    '6.png',
-                    '7.png',
-                    '8.png'
+                    '1.png', '2.png', '3.png', '4.png', '5.png', '6.png', '7.png', '8.png'
                 ]
             },
             {
@@ -422,21 +420,7 @@
                 fullKey: 'elixir_full',
                 url: '#',
                 images: [
-                    '9.png',
-                    '10.png',
-                    '11.png',
-                    '12.png',
-                    '13.png',
-                    '14.png',
-                    '15.png',
-                    '16.png',
-                    '17.png',
-                    '18.png',
-                    '19.png',
-                    '20.png',
-                    '21.png',
-                    '22.png',
-                    '23.png'
+                    '9.png', '10.png', '11.png', '12.png', '13.png', '14.png', '15.png', '16.png', '17.png', '18.png', '19.png', '20.png', '21.png', '22.png', '23.png'
                 ]
             }
         ];
@@ -449,7 +433,7 @@
             projectsData.forEach(project => {
                 const t = translations[currentLang];
                 const card = document.createElement('div');
-                card.className = 'group p-8 rounded-3xl glass-card cursor-pointer flex flex-col justify-between';
+                card.className = 'group p-6 sm:p-8 rounded-3xl glass-card cursor-pointer flex flex-col justify-between';
                 card.onclick = () => openLightbox(project.id);
                 card.innerHTML = `
                     <div>
@@ -457,8 +441,8 @@
                             <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);">${project.category}</span>
                             <span class="px-3 py-1 rounded-full text-xs font-medium glass-card">${project.images.length} фото</span>
                         </div>
-                        <h3 class="font-serif text-2xl font-medium group-hover:opacity-75 transition-opacity">${project.title}</h3>
-                        <p class="text-sm mt-2 leading-relaxed" style="color: var(--muted-color);">${t[project.descKey]}</p>
+                        <h3 class="font-serif text-xl sm:text-2xl font-medium group-hover:opacity-75 transition-opacity">${project.title}</h3>
+                        <p class="text-xs sm:text-sm mt-2 leading-relaxed" style="color: var(--muted-color);">${t[project.descKey]}</p>
                     </div>
                     <div class="pt-6 flex items-center justify-between border-t mt-6" style="border-color: var(--card-border);">
                         <span class="text-xs font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
@@ -514,27 +498,23 @@
                 const response = await fetch(contactForm.action, {
                     method: contactForm.method,
                     body: data,
-                    headers: {
-                        'Accept': 'application/json'
-                    }
+                    headers: { 'Accept': 'application/json' }
                 });
                 if (response.ok) {
                     formStatus.textContent = translations[currentLang].form_success;
                     formStatus.classList.remove('hidden');
                     contactForm.reset();
                 } else {
-                    formStatus.textContent = currentLang === 'ru' ? 'Ошибка отправки. Попробуйте еще раз.' : currentLang === 'en' ? 'Submission error. Please try again.' : 'Помилка відправки. Спробуйте ще раз.';
+                    formStatus.textContent = currentLang === 'ru' ? 'Ошибка отправки.' : currentLang === 'en' ? 'Submission error.' : 'Помилка відправки.';
                     formStatus.classList.remove('hidden');
                 }
             } catch (error) {
-                formStatus.textContent = currentLang === 'ru' ? 'Ошибка сети. Попробуйте позже.' : currentLang === 'en' ? 'Network error. Please try later.' : 'Помилка мережі. Спробуйте пізніше.';
+                formStatus.textContent = currentLang === 'ru' ? 'Ошибка сети.' : currentLang === 'en' ? 'Network error.' : 'Помилка мережі.';
                 formStatus.classList.remove('hidden');
             } finally {
                 submitBtn.disabled = false;
                 submitBtn.style.opacity = '1';
-                setTimeout(() => {
-                    formStatus.classList.add('hidden');
-                }, 5000);
+                setTimeout(() => { formStatus.classList.add('hidden'); }, 5000);
             }
         });
 
@@ -548,7 +528,7 @@
             
             const modalContent = document.getElementById('lightbox-modal-content');
             modalContent.classList.remove('animate-modal-show');
-            void modalContent.offsetWidth; // перезапуск анимации модалки
+            void modalContent.offsetWidth;
             modalContent.classList.add('animate-modal-show');
 
             document.getElementById('lightbox').classList.remove('hidden');
@@ -570,7 +550,7 @@
             const imgElement = document.getElementById('lightbox-img');
             imgElement.classList.remove('animate-image-change');
             imgElement.src = currentProject.images[currentImageIndex];
-            void imgElement.offsetWidth; // перезапуск анимации смены фото
+            void imgElement.offsetWidth;
             imgElement.classList.add('animate-image-change');
 
             const currentNum = String(currentImageIndex + 1).padStart(2, '0');
@@ -590,7 +570,7 @@
             currentProject.images.forEach((img, idx) => {
                 const thumb = document.createElement('img');
                 thumb.src = img;
-                thumb.className = `w-16 h-12 object-cover rounded-lg cursor-pointer border-2 transition-all ${idx === currentImageIndex ? 'scale-105' : 'opacity-50 hover:opacity-100'}`;
+                thumb.className = `w-12 h-9 sm:w-16 sm:h-12 object-cover rounded-lg cursor-pointer border-2 transition-all shrink-0 ${idx === currentImageIndex ? 'scale-105' : 'opacity-50 hover:opacity-100'}`;
                 thumb.style.borderColor = idx === currentImageIndex ? 'var(--accent-color)' : 'transparent';
                 thumb.onclick = () => {
                     currentImageIndex = idx;
