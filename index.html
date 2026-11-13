@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="uk" class="scroll-smooth" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vslnk — Portfolio & Digital Creator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,400&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        :root[data-theme="dark"] {
+            --bg-color: #0b0b0e;
+            --text-color: #f3f3f5;
+            --muted-color: #9494a0;
+            --card-bg: rgba(19, 19, 24, 0.85);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #ff2a85;
+            --accent-gradient: linear-gradient(to right, #ff2a85, #b829ff);
+            --header-bg: rgba(11, 11, 14, 0.9);
+        }
+        :root[data-theme="light"] {
+            --bg-color: #F7F5F0;
+            --text-color: #18181B;
+            --muted-color: #71717A;
+            --card-bg: rgba(255, 255, 255, 0.7);
+            --card-border: rgba(24, 24, 27, 0.1);
+            --accent-color: #D4738C;
+            --accent-gradient: linear-gradient(to right, #D4738C, #B56576);
+            --header-bg: rgba(247, 245, 240, 0.9);
+        }
+        :root[data-theme="pink"] {
+            --bg-color: #FFF0F5;
+            --text-color: #4A2E35;
+            --muted-color: #8C6A73;
+            --card-bg: rgba(255, 255, 255, 0.8);
+            --card-border: rgba(212, 115, 140, 0.2);
+            --accent-color: #FF1493;
+            --accent-gradient: linear-gradient(to right, #FF1493, #FF69B4);
+            --header-bg: rgba(255, 240, 245, 0.9);
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .glass-card:hover {
+            border-color: var(--accent-color);
+            box-shadow: 0 15px 35px -10px rgba(255, 42, 133, 0.2);
+            transform: translateY(-4px);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; filter: drop-shadow(0 0 12px rgba(255,42,133,0.4)); }
+        }
+        .animate-pulse-glow {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-pink-500 selection:text-white">
+
+    <header class="fixed top-0 left-0 right-0 z-40 backdrop-blur-md border-b border-white/10 transition-all duration-300" style="background-color: var(--header-bg);">
+        <div class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between">
+            <a href="#" class="font-serif text-2xl tracking-tight font-bold italic hover:scale-105 transition-transform">vslnk<span style="color: var(--accent-color);">.</span></a>
+            
+            <nav class="hidden md:flex items-center gap-8 text-sm font-medium" style="color: var(--muted-color);">
+                <a href="#about" class="hover:opacity-100 transition-opacity" data-i18n="nav_about">про мене</a>
+                <a href="#projects" class="hover:opacity-100 transition-opacity" data-i18n="nav_projects">проєкти</a>
+                <a href="#stack" class="hover:opacity-100 transition-opacity" data-i18n="nav_stack">стек</a>
+                <a href="#contact" class="hover:opacity-100 transition-opacity" data-i18n="nav_contact">контакти</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <select id="theme-selector" onchange="setTheme(this.value)" class="text-xs font-medium px-3 py-1.5 rounded-full glass-card outline-none cursor-pointer">
+                    <option value="dark">🌙 Темна</option>
+                    <option value="light">☀️ Світла</option>
+                    <option value="pink">🌸 Рожева</option>
+                </select>
+
+                <select id="lang-selector" onchange="setLang(this.value)" class="text-xs font-medium px-3 py-1.5 rounded-full glass-card outline-none cursor-pointer">
+                    <option value="ua">🇺🇦 UA</option>
+                    <option value="ru">🇷🇺 RU</option>
+                    <option value="en">🇬🇧 EN</option>
+                </select>
+
+                <a href="#contact" class="hidden sm:inline-block px-5 py-2.5 rounded-full text-white text-sm font-medium transition-transform hover:scale-105 shadow-lg" style="background: var(--accent-gradient);" data-i18n="btn_contact">
+                    зв'язатися
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="pt-28 md:pt-36 pb-20 px-6 max-w-6xl mx-auto relative animate-fade-in">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-center relative z-10">
+            <div class="md:col-span-8 space-y-6">
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass-card text-xs font-semibold tracking-wide uppercase animate-pulse-glow" style="color: var(--accent-color);" data-i18n="hero_badge">
+                    ✨ Frontend & Python Developer / UI Logic
+                </div>
+                <h1 class="font-serif text-3xl sm:text-5xl md:text-6xl font-normal leading-[1.1] tracking-tight">
+                    <span data-i18n="hero_title_1">Код, дизайн та</span> <span class="italic font-light text-transparent bg-clip-text" style="background-image: var(--accent-gradient);" data-i18n="hero_title_accent">естетика</span> <span data-i18n="hero_title_2">у кожному пікселі.</span>
+                </h1>
+                <p class="text-base sm:text-lg md:text-xl max-w-2xl font-light leading-relaxed" style="color: var(--muted-color);" data-i18n="hero_desc">
+                    Привіт, я Валерія. Створюю круті веб-додатки та інтерфейси з характером, де чиста архітектура коду поєднується з бездоганним візуальним стилем.
+                </p>
+                <div class="flex flex-wrap items-center gap-4 pt-4">
+                    <a href="#projects" class="px-7 py-3.5 rounded-full text-sm font-medium transition-all transform hover:scale-105 shadow-md bg-white text-black hover:opacity-90" data-i18n="btn_projects">
+                        дивитися проєкти ↓
+                    </a>
+                    <button onclick="copyEmail()" id="copy-btn" class="px-7 py-3.5 rounded-full glass-card text-sm font-medium transition-all transform hover:scale-105">
+                        📋 <span data-i18n="btn_copy">скопіювати email</span>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="md:col-span-4">
+                <div class="p-8 rounded-3xl glass-card space-y-4 hover:rotate-1 transition-transform">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background: rgba(255,42,133,0.15); color: var(--accent-color);">
+                        <i data-lucide="sparkles" class="w-6 h-6"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-medium" data-i18n="card_title">Фокус та стиль</h3>
+                    <p class="text-sm leading-relaxed" style="color: var(--muted-color);" data-i18n="card_desc">
+                        Естетика, витончена типографіка, зручна архітектура та увага до кожної деталі.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-2 text-xs">
+                        <span class="px-3 py-1 rounded-md glass-card font-medium">Kyiv, UA</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="py-20 px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
+        <div class="mb-12">
+            <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);" data-i18n="portfolio_tag">Портфоліо</span>
+            <h2 class="font-serif text-3xl md:text-5xl mt-2" data-i18n="portfolio_title">Вибрані проєкти</h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8" id="projects-grid"></div>
+    </section>
+
+    <section id="stack" class="py-20 px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
+        <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);" data-i18n="stack_tag">Технології</span>
+        <h2 class="font-serif text-3xl md:text-5xl mt-2 mb-10" data-i18n="stack_title">Стек та інструменти</h2>
+        
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-lg">C++ / Python</span>
+                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Core & Logic</span>
+            </div>
+            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-lg">JS / HTML / CSS</span>
+                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Frontend Web</span>
+            </div>
+            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-lg">PostgreSQL</span>
+                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Neon DB & SQL</span>
+            </div>
+            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-lg">UI / UX</span>
+                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Canva & Visuals</span>
+            </div>
+            <div class="p-6 rounded-2xl glass-card text-center transform hover:scale-105 transition-transform">
+                <span class="block font-semibold text-lg">Git / VS Code</span>
+                <span class="text-xs mt-1 block" style="color: var(--muted-color);">Workflow</span>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-20 px-6 max-w-6xl mx-auto border-t" style="border-color: var(--card-border);">
+        <div class="p-10 md:p-16 rounded-3xl glass-card max-w-3xl mx-auto space-y-6">
+            <div class="text-center">
+                <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);" data-i18n="contact_tag">Зв'язок</span>
+                <h2 class="font-serif text-3xl md:text-5xl mt-2" data-i18n="contact_title">Давайте створимо щось круте разом</h2>
+                <p class="max-w-md mx-auto text-sm md:text-base mt-2" style="color: var(--muted-color);" data-i18n="contact_desc">
+                    Відкрита до стажування, крутих проєктів та колаборацій. Залиште повідомлення, і воно прилетить мені на пошту.
+                </p>
+            </div>
+
+            <form action="https://formspree.io/f/mdegagwe" method="POST" class="space-y-4 pt-4" id="contact-form">
+                <div>
+                    <label class="block text-xs uppercase tracking-wider mb-2 font-medium" style="color: var(--muted-color);" data-i18n="form_email_label">Ваше ім'я / пошта</label>
+                    <input type="email" name="email" required placeholder="name@example.com" class="w-full px-5 py-3 rounded-2xl glass-card outline-none text-sm transition-all focus:border-pink-500">
+                </div>
+                <div>
+                    <label class="block text-xs uppercase tracking-wider mb-2 font-medium" style="color: var(--muted-color);" data-i18n="form_msg_label">Повідомлення</label>
+                    <textarea name="message" rows="4" required placeholder="Розкажіть про проєкт чи завдання..." data-i18n-placeholder="form_msg_placeholder" class="w-full px-5 py-3 rounded-2xl glass-card outline-none text-sm transition-all resize-none focus:border-pink-500"></textarea>
+                </div>
+                <div class="text-center pt-2">
+                    <button type="submit" id="submit-btn" class="px-8 py-4 rounded-full text-white text-sm font-medium hover:opacity-95 transition-transform hover:scale-105 shadow-lg cursor-pointer" style="background: var(--accent-gradient);" data-i18n="form_submit_btn">
+                        Надіслати повідомлення ✉️
+                    </button>
+                </div>
+            </form>
+            <div id="form-status" class="text-center text-xs mt-2 hidden" style="color: var(--accent-color);" data-i18n="form_success">Дякую! Повідомлення успішно надіслано.</div>
+        </div>
+    </section>
+
+    <footer class="py-10 px-6 max-w-6xl mx-auto border-t flex flex-col sm:flex-row items-center justify-between text-xs" style="border-color: var(--card-border); color: var(--muted-color);">
+        <p>© 2026 vslnk. All rights reserved.</p>
+        <p class="mt-2 sm:mt-0" data-i18n="footer_note">Designed with aesthetic precision 🤍</p>
+    </footer>
+
+    <div id="lightbox" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 transition-opacity duration-300">
+        <div class="rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl glass-card relative animate-fade-in">
+            <div class="p-6 border-b border-white/10 flex items-center justify-between" style="background: var(--card-bg);">
+                <div>
+                    <span id="modal-category" class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);"></span>
+                    <h3 id="modal-title" class="font-serif text-2xl font-medium mt-1"></h3>
+                </div>
+                <div class="flex items-center gap-3">
+                    <a id="modal-project-link" href="#" target="_blank" class="px-4 py-2 rounded-full text-xs font-medium text-white shadow-md transition-transform hover:scale-105" style="background: var(--accent-gradient);" data-i18n="open_site_btn">🌐 Відкрити сайт</a>
+                    <button onclick="closeLightbox()" class="w-10 h-10 rounded-full glass-card flex items-center justify-center transition-colors hover:rotate-90 duration-300">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="relative flex-1 bg-black/40 flex items-center justify-center overflow-hidden min-h-[350px] md:min-h-[450px]">
+                <button onclick="prevSlide()" class="absolute left-4 z-20 w-12 h-12 rounded-full glass-card flex items-center justify-center shadow-md transition-transform hover:scale-110">
+                    <i data-lucide="chevron-left" class="w-6 h-6"></i>
+                </button>
+                <button onclick="nextSlide()" class="absolute right-4 z-20 w-12 h-12 rounded-full glass-card flex items-center justify-center shadow-md transition-transform hover:scale-110">
+                    <i data-lucide="chevron-right" class="w-6 h-6"></i>
+                </button>
+
+                <img id="lightbox-img" src="" alt="Project view" class="max-h-[500px] w-auto object-contain transition-all duration-500">
+            </div>
+
+            <div class="p-6 border-t border-white/10 space-y-4" style="background: var(--card-bg);">
+                <p id="modal-desc" class="text-sm leading-relaxed" style="color: var(--muted-color);"></p>
+                <div class="flex items-center justify-between">
+                    <div id="thumbnails-container" class="flex gap-2 overflow-x-auto py-1"></div>
+                    <span id="slide-counter" class="text-xs font-semibold" style="color: var(--muted-color);">01 / 01</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        lucide.createIcons();
+
+        const translations = {
+            ua: {
+                nav_about: "про мене",
+                nav_projects: "проєкти",
+                nav_stack: "стек",
+                nav_contact: "контакти",
+                btn_contact: "зв'язатися",
+                hero_badge: "✨ Frontend & Python Developer / UI Logic",
+                hero_title_1: "Код, дизайн та",
+                hero_title_accent: "естетика",
+                hero_title_2: "у кожному пікселі.",
+                hero_desc: "Привіт, я Валерія. Створюю круті веб-додатки та інтерфейси з характером, де чиста архітектура коду поєднується з бездоганним візуальним стилем.",
+                btn_projects: "дивитися проєкти ↓",
+                btn_copy: "скопіювати email",
+                card_title: "Фокус та стиль",
+                card_desc: "Естетика, витончена типографіка, зручна архітектура та увага до кожної деталі.",
+                portfolio_tag: "Портфоліо",
+                portfolio_title: "Вибрані проєкти",
+                stack_tag: "Технології",
+                stack_title: "Стек та інструменти",
+                contact_tag: "Зв'язок",
+                contact_title: "Давайте створимо щось круте разом",
+                contact_desc: "Відкрита до стажування, крутих проєктів та колаборацій. Залиште повідомлення, і воно прилетить мені на пошту.",
+                form_email_label: "Ваше ім'я / пошта",
+                form_msg_label: "Повідомлення",
+                form_msg_placeholder: "Розкажіть про проєкт чи завдання...",
+                form_submit_btn: "Надіслати повідомлення ✉️",
+                form_success: "Дякую! Повідомлення успішно надіслано.",
+                footer_note: "Designed with aesthetic precision 🤍",
+                gallery_btn: "Відкрити проєкт →",
+                open_site_btn: "🌐 Відкрити сайт",
+                niara_desc: "Е-комрс платформа для китайських товарів з аналізом конкурентів та Neon PostgreSQL.",
+                niara_full: "Повний цикл розробки проєкту Niara: глибокий конкурентний аналіз, візуальні макети, підключення Neon PostgreSQL бази даних та автоматична обробка форм замовлень.",
+                elixir_desc: "Cyber Life & Health Workspace — операційна система для здоров'я, трекінгу звичок, харчування та фокусу.",
+                elixir_full: "ELIXIR OS: повноцінне кібер-простір додаток, що включає денник харчування з базою 200+ продуктів, трекер води, цикл, аларм-систему, AI-асистента та Pomodoro-фокус."
+            },
+            ru: {
+                nav_about: "о мне",
+                nav_projects: "проекты",
+                nav_stack: "стек",
+                nav_contact: "контакты",
+                btn_contact: "связаться",
+                hero_badge: "✨ Frontend & Python Developer / UI Logic",
+                hero_title_1: "Код, дизайн и",
+                hero_title_accent: "эстетика",
+                hero_title_2: "в каждом пикселе.",
+                hero_desc: "Привет, я Валерия. Создаю крутые веб-приложения и интерфейсы с характером, где чистая архитектура кода сочетается с безупречным визуальным стилем.",
+                btn_projects: "смотреть проекты ↓",
+                btn_copy: "скопировать email",
+                card_title: "Фокус и стиль",
+                card_desc: "Эстетика, утонченная типографика, удобная архитектура и внимание к каждой детали.",
+                portfolio_tag: "Портфолио",
+                portfolio_title: "Избранные проекты",
+                stack_tag: "Технологии",
+                stack_title: "Стек и инструменты",
+                contact_tag: "Связь",
+                contact_title: "Давайте создадим что-то крутое вместе",
+                contact_desc: "Открыта к стажировке, крутым проектам и коллаборациям. Оставьте сообщение, и оно прилетит мне на почту.",
+                form_email_label: "Ваше имя / почта",
+                form_msg_label: "Сообщение",
+                form_msg_placeholder: "Расскажите о проекте или задаче...",
+                form_submit_btn: "Отправить сообщение ✉️",
+                form_success: "Спасибо! Сообщение успешно отправлено.",
+                footer_note: "Designed with aesthetic precision 🤍",
+                gallery_btn: "Открыть проект →",
+                open_site_btn: "🌐 Открыть сайт",
+                niara_desc: "Э-коммерс платформа для китайских товаров с анализом конкурентов и Neon PostgreSQL.",
+                niara_full: "Полный цикл разработки проекта Niara: глубокий конкурентный анализ, визуальные макеты, подключение Neon PostgreSQL и автоматическая обработка форм.",
+                elixir_desc: "Cyber Life & Health Workspace — операционная система для здоровья, трекинга привычек, питания и фокуса.",
+                elixir_full: "ELIXIR OS: полноценное кибер-пространство, включающее дневник питания с базой 200+ продуктов, трекер воды, цикл, будильник, AI-ассистент и Pomodoro-фокус."
+            },
+            en: {
+                nav_about: "about",
+                nav_projects: "projects",
+                nav_stack: "stack",
+                nav_contact: "contact",
+                btn_contact: "get in touch",
+                hero_badge: "✨ Frontend & Python Developer / UI Logic",
+                hero_title_1: "Code, design &",
+                hero_title_accent: "aesthetics",
+                hero_title_2: "in every pixel.",
+                hero_desc: "Hi, I'm Valeria. I build stunning web apps and interfaces with character, combining clean architecture with flawless visual style.",
+                btn_projects: "view projects ↓",
+                btn_copy: "copy email",
+                card_title: "Focus & Style",
+                card_desc: "Aesthetics, refined typography, robust architecture, and attention to every detail.",
+                portfolio_tag: "Portfolio",
+                portfolio_title: "Featured Projects",
+                stack_tag: "Tech Stack",
+                stack_title: "Stack & Tools",
+                contact_tag: "Contact",
+                contact_title: "Let's build something cool together",
+                contact_desc: "Open to internships, exciting projects, and collaborations. Leave a message and it will land straight in my inbox.",
+                form_email_label: "Your name / email",
+                form_msg_label: "Message",
+                form_msg_placeholder: "Tell me about your project or task...",
+                form_submit_btn: "Send message ✉️",
+                form_success: "Thank you! Your message has been sent.",
+                footer_note: "Designed with aesthetic precision 🤍",
+                gallery_btn: "Open Project →",
+                open_site_btn: "🌐 Open Site",
+                niara_desc: "E-commerce platform for Chinese goods with competitor analysis and Neon PostgreSQL.",
+                niara_full: "Full development cycle of Niara: deep competitor analysis, visual layouts, Neon PostgreSQL database integration, and automated form processing.",
+                elixir_desc: "Cyber Life & Health Workspace — operational system for health, habit tracking, nutrition, and focus.",
+                elixir_full: "ELIXIR OS: full cyber workspace including nutrition diary with 200+ food database, water tracker, cycle calendar, alarm system, AI assistant, and Pomodoro focus timer."
+            }
+        };
+
+        const projectsData = [
+            {
+                id: 'niara',
+                title: 'Niara Platform',
+                category: 'E-commerce & Web',
+                descKey: 'niara_desc',
+                fullKey: 'niara_full',
+                url: 'https://sasha-15-a.github.io/Niara/',
+                images: [
+                    '1.png',
+                    '2.png',
+                    '3.png',
+                    '4.png',
+                    '5.png',
+                    '6.png',
+                    '7.png',
+                    '8.png'
+                ]
+            },
+            {
+                id: 'elixir',
+                title: 'ELIXIR OS',
+                category: 'Health & Life Workspace',
+                descKey: 'elixir_desc',
+                fullKey: 'elixir_full',
+                url: '#',
+                images: [
+                    '9.png',
+                    '10.png',
+                    '11.png',
+                    '12.png',
+                    '13.png',
+                    '14.png',
+                    '15.png',
+                    '16.png',
+                    '17.png',
+                    '18.png',
+                    '19.png',
+                    '20.png',
+                    '21.png',
+                    '22.png',
+                    '23.png'
+                ]
+            }
+        ];
+
+        let currentLang = 'ua';
+
+        function renderProjects() {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = '';
+            projectsData.forEach(project => {
+                const t = translations[currentLang];
+                const card = document.createElement('div');
+                card.className = 'group p-8 rounded-3xl glass-card cursor-pointer flex flex-col justify-between';
+                card.onclick = () => openLightbox(project.id);
+                card.innerHTML = `
+                    <div>
+                        <div class="flex items-center justify-between mb-4">
+                            <span class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);">${project.category}</span>
+                            <span class="px-3 py-1 rounded-full text-xs font-medium glass-card">${project.images.length} фото</span>
+                        </div>
+                        <h3 class="font-serif text-2xl font-medium group-hover:opacity-75 transition-opacity">${project.title}</h3>
+                        <p class="text-sm mt-2 leading-relaxed" style="color: var(--muted-color);">${t[project.descKey]}</p>
+                    </div>
+                    <div class="pt-6 flex items-center justify-between border-t mt-6" style="border-color: var(--card-border);">
+                        <span class="text-xs font-semibold flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+                            ${t.gallery_btn}
+                        </span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function setLang(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (translations[lang][key]) {
+                    el.textContent = translations[lang][key];
+                }
+            });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+                const key = el.getAttribute('data-i18n-placeholder');
+                if (translations[lang][key]) {
+                    el.placeholder = translations[lang][key];
+                }
+            });
+            renderProjects();
+        }
+
+        function setTheme(themeName) {
+            document.documentElement.setAttribute('data-theme', themeName);
+        }
+
+        function copyEmail() {
+            navigator.clipboard.writeText('vslnk.code@gmail.com');
+            const btn = document.getElementById('copy-btn');
+            btn.textContent = currentLang === 'ru' ? '✨ Скопировано!' : currentLang === 'en' ? '✨ Copied!' : '✨ Скопійовано!';
+            setTimeout(() => {
+                btn.innerHTML = `📋 <span data-i18n="btn_copy">${translations[currentLang].btn_copy}</span>`;
+            }, 2000);
+        }
+
+        const contactForm = document.getElementById('contact-form');
+        const formStatus = document.getElementById('form-status');
+        const submitBtn = document.getElementById('submit-btn');
+
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            submitBtn.disabled = true;
+            submitBtn.style.opacity = '0.6';
+
+            const data = new FormData(contactForm);
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: contactForm.method,
+                    body: data,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                if (response.ok) {
+                    formStatus.textContent = translations[currentLang].form_success;
+                    formStatus.classList.remove('hidden');
+                    contactForm.reset();
+                } else {
+                    formStatus.textContent = currentLang === 'ru' ? 'Ошибка отправки. Попробуйте еще раз.' : currentLang === 'en' ? 'Submission error. Please try again.' : 'Помилка відправки. Спробуйте ще раз.';
+                    formStatus.classList.remove('hidden');
+                }
+            } catch (error) {
+                formStatus.textContent = currentLang === 'ru' ? 'Ошибка сети. Попробуйте позже.' : currentLang === 'en' ? 'Network error. Please try later.' : 'Помилка мережі. Спробуйте пізніше.';
+                formStatus.classList.remove('hidden');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.style.opacity = '1';
+                setTimeout(() => {
+                    formStatus.classList.add('hidden');
+                }, 5000);
+            }
+        });
+
+        let currentProject = null;
+        let currentImageIndex = 0;
+
+        function openLightbox(projectId) {
+            currentProject = projectsData.find(p => p.id === projectId);
+            currentImageIndex = 0;
+            updateLightboxContent();
+            document.getElementById('lightbox').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            document.getElementById('lightbox').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateLightboxContent() {
+            if (!currentProject) return;
+            const t = translations[currentLang];
+            document.getElementById('modal-title').textContent = currentProject.title;
+            document.getElementById('modal-category').textContent = currentProject.category;
+            document.getElementById('modal-desc').textContent = t[currentProject.fullKey];
+            document.getElementById('lightbox-img').src = currentProject.images[currentImageIndex];
+            
+            const currentNum = String(currentImageIndex + 1).padStart(2, '0');
+            const totalNum = String(currentProject.images.length).padStart(2, '0');
+            document.getElementById('slide-counter').textContent = `${currentNum} / ${totalNum}`;
+            
+            const linkBtn = document.getElementById('modal-project-link');
+            if (currentProject.url && currentProject.url !== '#') {
+                linkBtn.href = currentProject.url;
+                linkBtn.style.display = 'inline-block';
+            } else {
+                linkBtn.style.display = 'none';
+            }
+
+            const thumbContainer = document.getElementById('thumbnails-container');
+            thumbContainer.innerHTML = '';
+            currentProject.images.forEach((img, idx) => {
+                const thumb = document.createElement('img');
+                thumb.src = img;
+                thumb.className = `w-16 h-12 object-cover rounded-lg cursor-pointer border-2 transition-all ${idx === currentImageIndex ? 'scale-105' : 'opacity-50 hover:opacity-100'}`;
+                thumb.style.borderColor = idx === currentImageIndex ? 'var(--accent-color)' : 'transparent';
+                thumb.onclick = () => {
+                    currentImageIndex = idx;
+                    updateLightboxContent();
+                };
+                thumbContainer.appendChild(thumb);
+            });
+        }
+
+        function nextSlide() {
+            if (!currentProject) return;
+            currentImageIndex = (currentImageIndex + 1) % currentProject.images.length;
+            updateLightboxContent();
+        }
+
+        function prevSlide() {
+            if (!currentProject) return;
+            currentImageIndex = (currentImageIndex - 1 + currentProject.images.length) % currentProject.images.length;
+            updateLightboxContent();
+        }
+
+        renderProjects();
+    </script>
+</body>
+</html>
