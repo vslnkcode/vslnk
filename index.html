@@ -83,6 +83,24 @@
         .animate-pulse-glow {
             animation: pulseGlow 3s infinite ease-in-out;
         }
+
+        /* Нежная и эстетичная анимация для модального окна (появление с мягким зумом) */
+        @keyframes modalShow {
+            0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .animate-modal-show {
+            animation: modalShow 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        /* Нежная анимация смены фото (плавное растворение + легкий масштаб) */
+        @keyframes imageChange {
+            0% { opacity: 0; transform: scale(0.98); filter: blur(4px); }
+            100% { opacity: 1; transform: scale(1); filter: blur(0px); }
+        }
+        .animate-image-change {
+            animation: imageChange 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 <body class="antialiased selection:bg-pink-500 selection:text-white">
@@ -228,8 +246,9 @@
         <p class="mt-2 sm:mt-0" data-i18n="footer_note">Designed with aesthetic precision 🤍</p>
     </footer>
 
+    <!-- Lightbox Modal с нежной анимацией появления -->
     <div id="lightbox" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-xl hidden flex items-center justify-center p-4 transition-opacity duration-300">
-        <div class="rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl glass-card relative animate-fade-in">
+        <div id="lightbox-modal-content" class="rounded-3xl max-w-4xl w-full max-h-[90vh] flex flex-col overflow-hidden shadow-2xl glass-card relative animate-modal-show">
             <div class="p-6 border-b border-white/10 flex items-center justify-between" style="background: var(--card-bg);">
                 <div>
                     <span id="modal-category" class="text-xs uppercase tracking-widest font-semibold" style="color: var(--accent-color);"></span>
@@ -251,7 +270,8 @@
                     <i data-lucide="chevron-right" class="w-6 h-6"></i>
                 </button>
 
-                <img id="lightbox-img" src="" alt="Project view" class="max-h-[500px] w-auto object-contain transition-all duration-500">
+                <!-- Фото с плавной нежной анимацией смены -->
+                <img id="lightbox-img" src="" alt="Project view" class="max-h-[500px] w-auto object-contain animate-image-change">
             </div>
 
             <div class="p-6 border-t border-white/10 space-y-4" style="background: var(--card-bg);">
@@ -525,6 +545,12 @@
             currentProject = projectsData.find(p => p.id === projectId);
             currentImageIndex = 0;
             updateLightboxContent();
+            
+            const modalContent = document.getElementById('lightbox-modal-content');
+            modalContent.classList.remove('animate-modal-show');
+            void modalContent.offsetWidth; // перезапуск анимации модалки
+            modalContent.classList.add('animate-modal-show');
+
             document.getElementById('lightbox').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         }
@@ -540,8 +566,13 @@
             document.getElementById('modal-title').textContent = currentProject.title;
             document.getElementById('modal-category').textContent = currentProject.category;
             document.getElementById('modal-desc').textContent = t[currentProject.fullKey];
-            document.getElementById('lightbox-img').src = currentProject.images[currentImageIndex];
             
+            const imgElement = document.getElementById('lightbox-img');
+            imgElement.classList.remove('animate-image-change');
+            imgElement.src = currentProject.images[currentImageIndex];
+            void imgElement.offsetWidth; // перезапуск анимации смены фото
+            imgElement.classList.add('animate-image-change');
+
             const currentNum = String(currentImageIndex + 1).padStart(2, '0');
             const totalNum = String(currentProject.images.length).padStart(2, '0');
             document.getElementById('slide-counter').textContent = `${currentNum} / ${totalNum}`;
